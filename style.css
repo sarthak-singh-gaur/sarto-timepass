@@ -51,6 +51,36 @@ body {
     box-sizing: border-box;
 }
 
+#cat-heart {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: clamp(60px, 15vw, 100px);
+    height: auto;
+    max-width: 100%;
+    z-index: 999;
+}
+
+#cat-heart-tl {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: clamp(60px, 15vw, 100px);
+    height: auto;
+    max-width: 100%;
+    z-index: 999;
+}
+
+#cat-heart-br {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: clamp(60px, 15vw, 100px);
+    height: auto;
+    max-width: 100%;
+    z-index: 999;
+}
+
 .letter-window {
     width: min(90vw, 550px);
     max-width: 100%;

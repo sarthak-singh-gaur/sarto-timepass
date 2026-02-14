@@ -60,7 +60,6 @@ if (bgAudio) {
     bgAudio.addEventListener('ended', () => { if (audioStatus) audioStatus.textContent = '(ended)'; });
     bgAudio.addEventListener('waiting', () => { if (audioStatus) audioStatus.textContent = '(waiting)'; });
     bgAudio.addEventListener('stalled', () => { if (audioStatus) audioStatus.textContent = '(stalled)'; });
-    bgAudio.addEventListener('suspend', () => { if (audioStatus) audioStatus.textContent = '(suspended)'; });
     bgAudio.addEventListener('error', () => {
         const err = bgAudio.error;
         let msg = '(audio error)';
