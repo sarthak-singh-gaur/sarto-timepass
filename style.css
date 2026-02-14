@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     height: 100vh;
@@ -48,10 +52,10 @@ body {
 }
 
 .letter-window {
-    width: 90vw;
-    max-width: 800px;
+    width: min(90vw, 550px);
+    max-width: 100%;
     aspect-ratio: 3/2;
-    padding: 20px 20px 0 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +67,7 @@ body {
     background-position: center;
     border-radius: 12px;
     gap: 1px;
-    padding-top: 180px;
+    padding-top: clamp(80px, 15vw, 180px);
     transform: scale(1.2);
     opacity: 0;
     transition: transform 0.6s ease, opacity 0.6s ease;
@@ -75,35 +79,36 @@ body {
 }
 
 h1 {
-    font-size: 30px;
-    margin:0;
+    font-size: clamp(18px, 5vw, 30px);
+    margin: 0;
 }
 
 p {
-    font-size: 40px;
+    font-size: clamp(24px, 8vw, 40px);
 }
 
 
 /* Cat */
 
 .cat {
-    width: 200px;
+    width: clamp(120px, 40vw, 200px);
     height: auto;
-    max-width: 90vw;
+    max-width: 100%;
     margin: 10px 0;
     transition: width 0.4s ease;
 }
 
 .letter-window.final .cat {
-    width: 180px;
+    width: clamp(100px, 35vw, 180px);
 }
 
 /* buttons */
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: clamp(15px, 10vw, 30px);
     position: relative;
+    flex-wrap: wrap;
 }
 
 .no-wrapper{
@@ -111,8 +116,9 @@ p {
 }
 
 .btn {
-    width: 120px;
+    width: clamp(80px, 20vw, 120px);
     height: auto;
+    max-width: 100%;
     cursor: pointer;
     user-select: none;
     transition: transform 0.2s ease, filter 0.2s ease;
@@ -149,11 +155,11 @@ p {
 }
 
 .final-text {
-    font-size: 22px;
+    font-size: clamp(14px, 4vw, 22px);
     line-height: 1.4;
     text-align: center;
     display: inline-block;
-    padding: 16px 24px;
+    padding: clamp(12px, 3vw, 24px) clamp(16px, 5vw, 24px);
     background-color: rgba(255, 240, 240, 0.5);
     border-radius: 12px;
     margin: 20px;
