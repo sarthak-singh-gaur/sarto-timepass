@@ -52,33 +52,15 @@ body {
 }
 
 #cat-heart {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    width: clamp(60px, 15vw, 100px);
-    height: auto;
-    max-width: 100%;
-    z-index: 999;
+    display: none;
 }
 
 #cat-heart-tl {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    width: clamp(60px, 15vw, 100px);
-    height: auto;
-    max-width: 100%;
-    z-index: 999;
+    display: none;
 }
 
 #cat-heart-br {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-    width: clamp(60px, 15vw, 100px);
-    height: auto;
-    max-width: 100%;
-    z-index: 999;
+    display: none;
 }
 
 .letter-window {
@@ -268,28 +250,9 @@ p {
     opacity: 0.85;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
     transform-origin: center;
-}
-
-/* Floating hearts background */
-.hearts-bg {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
-    pointer-events: none;
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-}
-
-.heart {
-    position: absolute;
-    bottom: -60px;
-    font-size: 20px;
-    animation: floatUp linear infinite;
-    opacity: 0.85;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
-    transform-origin: center;
+    width: clamp(60px, 15vw, 100px);
+    height: auto;
+    max-width: 100%;
 }
 
 /* Confetti pieces for YES celebration */

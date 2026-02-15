@@ -152,45 +152,11 @@ if (yesBtn) {
         });
     }
 
-    // Retry button -> reset UI to starting page WITHOUT reloading audio
+    // Retry button -> reload to start over
     const retryBtn = document.getElementById('retry-btn');
     if (retryBtn) {
         retryBtn.addEventListener('click', () => {
-            // hide end screen
-            if (endScreen) endScreen.style.display = 'none';
-
-            // show envelope (start state)
-            if (envelope) envelope.style.display = 'block';
-
-            // hide letter and reset its window state
-            if (letter) letter.style.display = 'none';
-            const letterWindow = document.querySelector('.letter-window');
-            if (letterWindow) {
-                letterWindow.classList.remove('open', 'final');
-            }
-
-            // reset content to initial values
-            if (title) title.textContent = "Will you be my Valentine for today dear timepass? ";
-            if (catImg) catImg.src = 'cat_sarto.gif';
-            if (buttons) buttons.style.display = 'flex';
-            if (finalText) finalText.style.display = 'none';
-
-            // hide next button
-            if (nextBtn) nextBtn.style.display = 'none';
-
-            // reset YES button position/scale
-            if (yesBtn) {
-                yesBtn.style.position = 'relative';
-                yesBtn.style.top = '';
-                yesBtn.style.left = '';
-                yesBtn.style.transform = '';
-                yesScale = 1;
-            }
-
-            // audio: keep playing and update UI state
-            if (bgAudio) {
-                try { updateAudioToggle(); } catch (e) {}
-            }
+            location.reload();
         });
     }
 
@@ -201,9 +167,11 @@ if (yesBtn) {
 
     const HEARTS = 25;
     for (let i = 0; i < HEARTS; i++) {
-        const heart = document.createElement('div');
+        const heart = document.createElement('img');
         heart.className = 'heart';
-        heart.innerText = '❤️';
+        heart.src = 'cat_heart.gif';
+        heart.alt = 'Floating cat heart';
+        heart.style.pointerEvents = 'none';
 
         // Random horizontal position
         heart.style.left = Math.random() * 100 + 'vw';
@@ -214,7 +182,9 @@ if (yesBtn) {
         heart.style.animationDelay = (Math.random() * -dur) + 's';
 
         // Random size
-        heart.style.fontSize = (14 + Math.random() * 30) + 'px';
+        const size = 60 + Math.random() * 60; // 60px - 120px
+        heart.style.width = size + 'px';
+        heart.style.height = 'auto';
 
         // Slight horizontal drift using transform translateX via CSS variable
         const drift = (Math.random() - 0.5) * 20; // -10 to 10 vw
@@ -223,4 +193,3 @@ if (yesBtn) {
         container.appendChild(heart);
     }
 })();
-
