@@ -5,12 +5,18 @@ const noBtn = document.querySelector(".no-btn");
 const yesBtn = document.querySelector(".btn[alt='Yes']");
 const bgAudio = document.getElementById("bg-audio");
 const audioToggle = document.getElementById("audio-toggle");
+const audioNext = document.getElementById("audio-next");
+const audioPrev = document.getElementById("audio-prev");
 const audioStatus = document.getElementById("audio-status");
 
 const title = document.getElementById("letter-title");
 const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
+
+// Songs playlist
+const songs = ['song.wav', 'song2.wav', 'song3.wav', 'song4.wav',];
+let currentSongIndex = Math.floor(Math.random() * songs.length); // Start with random song
 
 // Click Envelope
 // Typewriter effect function
@@ -60,17 +66,31 @@ function updateAudioToggle() {
         audioToggle.textContent = "▶️";
         audioToggle.title = "Play music";
         audioToggle.setAttribute('aria-pressed', 'false');
-        if (audioStatus) audioStatus.textContent = '(paused)';
+        if (audioStatus) audioStatus.textContent = `(paused) - Song ${currentSongIndex + 1}/${songs.length}`;
     } else {
         audioToggle.textContent = "⏸️";
         audioToggle.title = "Pause music";
         audioToggle.setAttribute('aria-pressed', 'true');
-        if (audioStatus) audioStatus.textContent = '(playing)';
+        if (audioStatus) audioStatus.textContent = `(playing) - Song ${currentSongIndex + 1}/${songs.length}`;
+    }
+}
+
+function changeSong(index) {
+    if (index < 0) currentSongIndex = songs.length - 1;
+    else if (index >= songs.length) currentSongIndex = 0;
+    else currentSongIndex = index;
+    
+    if (bgAudio) {
+        bgAudio.src = songs[currentSongIndex];
+        bgAudio.load();
+        bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
     }
 }
 
 // Try to start playback on load (autoplay may be blocked); reflect state in toggle.
 if (bgAudio) {
+    // Set the randomly selected song
+    bgAudio.src = songs[currentSongIndex];
     try { bgAudio.volume = 0.8; bgAudio.muted = false; } catch (e) {}
     bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
 } else if (audioStatus) {
@@ -105,6 +125,20 @@ if (audioToggle) {
             bgAudio.pause();
             updateAudioToggle();
         }
+    });
+}
+
+if (audioNext) {
+    audioNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        changeSong(currentSongIndex + 1);
+    });
+}
+
+if (audioPrev) {
+    audioPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        changeSong(currentSongIndex - 1);
     });
 }
 

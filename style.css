@@ -180,8 +180,8 @@ p {
 /* Audio toggle */
 #audio-toggle {
     position: fixed;
-    left: 16px;
-    bottom: 16px;
+    left: 70px;
+    bottom: 8px;
     z-index: 9999;
     background: rgba(255, 255, 255, 0.9);
     border: none;
@@ -208,12 +208,55 @@ p {
 
 #audio-controls {
     position: fixed;
-    left: 16px;
-    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;
     z-index: 9999;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: nowrap;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 8px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#audio-controls button {
+    background: rgba(239, 5, 5, 0.95);
+    border: none;
+    padding: 10px 13px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    flex-shrink: 0;
+}
+
+#audio-status {
+    font-size: 13px;
+    color: #555;
+    background: transparent;
+    padding: 0 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    min-width: max-content;
+}
+
+#audio-controls button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background: rgb(228, 15, 15);
+}
+
+#audio-controls button:active {
+    transform: scale(0.95);
+}
+
+#audio-controls button:focus {
+    outline: 2px solid #444;
 }
 
 #audio-status {
@@ -329,7 +372,7 @@ p {
 #next-btn {
     position: fixed;
     left: 50%;
-    bottom: 18px;
+    bottom: 65px;
     transform: translateX(-50%);
     width: 130px;
     max-width: 26vw;
