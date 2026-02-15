@@ -13,6 +13,27 @@ const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
 // Click Envelope
+// Typewriter effect function
+function typewriterEffect(element, text, speed = 50) {
+    return new Promise((resolve) => {
+        element.textContent = '';
+        let index = 0;
+        
+        function typeChar() {
+            if (index < text.length) {
+                element.textContent += text[index];
+                index++;
+                setTimeout(typeChar, speed);
+            } else {
+                resolve();
+            }
+        }
+        
+        typeChar();
+    });
+}
+
+// Click Envelope
 if (envelope) {
     envelope.addEventListener("click", () => {
         envelope.style.display = "none";
@@ -24,6 +45,11 @@ if (envelope) {
 
         setTimeout(() => {
             document.querySelector(".letter-window")?.classList.add("open");
+            // Start typing animation for title
+            if (title) {
+                const titleText = "Will you be my Valentine for today dear timepass? ";
+                typewriterEffect(title, titleText, 40);
+            }
         }, 50);
     });
 }
@@ -114,7 +140,11 @@ if (yesBtn) {
         if (catImg) catImg.src = "cat_dance.gif";
         document.querySelector(".letter-window")?.classList.add("final");
         if (buttons) buttons.style.display = "none";
-        if (finalText) finalText.style.display = "block";
+        if (finalText) {
+            finalText.style.display = "block";
+            const finalTextContent = "Valentines note: I made this website just for my dear timepass!!!";
+            typewriterEffect(finalText, finalTextContent, 40);
+        }
             // show next button at bottom
             const nextBtn = document.getElementById('next-btn');
             if (nextBtn) nextBtn.style.display = 'block';
@@ -147,8 +177,11 @@ if (yesBtn) {
                 endCat.src = '';
                 endCat.src = src;
             }
-            // update made-by text (already set in HTML, but ensure capitalization)
-            if (madeBy) madeBy.textContent = 'made with love by sarto';
+            // update made-by text with typing animation
+            if (madeBy) {
+                const madeByText = 'made with love by sarto';
+                typewriterEffect(madeBy, madeByText, 40);
+            }
         });
     }
 
