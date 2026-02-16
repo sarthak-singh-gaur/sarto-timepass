@@ -372,7 +372,7 @@ p {
 #next-btn {
     position: fixed;
     left: 50%;
-    bottom: 65px;
+    bottom: 60px;
     transform: translateX(-50%);
     width: 130px;
     max-width: 26vw;
