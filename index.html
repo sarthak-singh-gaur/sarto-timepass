@@ -2,65 +2,233 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Valentine Letter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Girlfriend Day, Mogu Baby! 🍆💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700&family=Pixelify+Sans:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Background Video & Tint Overlay -->
+    <video id="bg-video" autoplay loop muted playsinline>
+      <source src="mogu and sarto .mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Floating Baigan & Heart Background -->
     <div class="hearts-bg" aria-hidden="true"></div>
+
     <!-- Envelope Screen -->
-    <div id="envelope-container">
-      <img src="envelope.png" alt="Envelope" id="envelope" />
-      <p>♡ Letter for my timepass ♡</p>
-    </div>
-
-    <!-- Letter Screen -->
-    <div id="letter-container">
-      <div class="letter-window">
-        <h1 id="letter-title">Will you be my Valentine for today dear timepass? </h1>
-
-        <img src="cat_sarto.gif" class="cat" id="letter-cat" />
-
-        <div class="buttons" id="letter-buttons">
-          <img src="yes.png" class="btn yes-btn" alt="Yes" />
-
-          <div class="no-wrapper">
-            <img src="no.png" class="btn no-btn" alt="No" />
-          </div>
-        </div>
-
-        <p id="final-text" class="final-text" style="display: none">
-          <strong>Valentines note:</strong> I made this website just for my dear timepass!!!
-        </p>
+    <div id="envelope-container" class="active-screen">
+      <div class="envelope-wrapper">
+        <img src="envelope.png" alt="Envelope" id="envelope" />
+        <div class="envelope-badge">🍆 Mogu Baby</div>
       </div>
+      <p class="envelope-text">♡ Open Letter for My Dearest Mogu Baby ♡</p>
+      <span class="envelope-subtext">Sent with love by your Bhondu Baigan 🍆</span>
     </div>
+
+    <!-- Main Content App Hub (shown after opening envelope) -->
+    <main id="main-app" class="hidden-screen">
+      <!-- Navigation Bar -->
+      <nav class="app-nav">
+        <div class="nav-brand">Mogu Baby & Bhondu Baigan 🍆💖</div>
+        <div class="nav-tabs">
+          <button class="nav-tab active" data-target="proposal-section">💖 Proposal</button>
+          <button class="nav-tab" data-target="letter-section">💌 Heartfelt Letter</button>
+          <button class="nav-tab" data-target="reasons-section">✨ Reasons Why</button>
+        </div>
+      </nav>
+
+      <div class="content-container">
+        <!-- Section 1: Proposal Card (Revamped Custom Glass Frame for Mogu & Baigan) -->
+        <section id="proposal-section" class="app-section active-section">
+          <div class="proposal-card-frame">
+            <div class="card-decor-top">
+              <span class="decor-badge">🍆 Bhondu Baigan & Mogu Baby 💖</span>
+            </div>
+
+            <h1 id="letter-title">Will you stay by my side & be my safe place forever, Mogu Baby? 💖</h1>
+
+            <div class="cat-frame-container">
+              <img src="cat_sarto.gif" class="cat" id="letter-cat" alt="Cute Cat" />
+            </div>
+
+            <div class="buttons" id="letter-buttons">
+              <img src="yes.png" class="btn yes-btn" alt="Yes" title="Yes!" />
+
+              <div class="no-wrapper">
+                <img src="no.png" class="btn no-btn" alt="No" title="No" />
+              </div>
+            </div>
+
+            <div id="final-text" class="final-text" style="display: none">
+              <h2>YIPPEEE! 🎉💖</h2>
+              <p>You made your Bhondu Baigan the happiest person in the world! 🍆🥰</p>
+            </div>
+            
+            <img src="next.png" alt="Next Section" id="next-btn" style="display:none" />
+          </div>
+        </section>
+
+        <!-- Section 2: Heartfelt Letter -->
+        <section id="letter-section" class="app-section">
+          <div class="heartfelt-card">
+            <div class="letter-stamp">🍆</div>
+            <h2 class="letter-heading">A Letter From The Bottom Of My Heart 💌</h2>
+            
+            <div class="letter-body">
+              <p class="salutation">My Dearest Mogu Baby,</p>
+
+              <p>
+                I want to tell you something from the deepest part of my soul. 
+                I know that I am hard to handle sometimes, and I get a little too overwhelmed. 
+                But please know that I am trying—just like you are.
+              </p>
+
+              <p>
+                I want to be with you and adore you with the whole of my heart. 
+                Seeing you truly happy with me is all I ever wish for. 
+                From now on, I am going to keep trying my absolute best to become the person 
+                who is more reliant, more understanding, and keeps you happier every single day.
+              </p>
+
+              <p class="highlight-text">
+                "You were always my Mogu Baby, and you always will be my Mogu Baby." ✨
+              </p>
+
+              <p>
+                I really want to spend meaningful quality time with you. 
+                I genuinely believe that we are a unit—you and me together. 
+                I know that sometimes I fuck up, and in anger I even forget... and I am so deeply sorry for those moments. 
+                But I promise you, I will keep working to be better for you, and to love you with everything I have.
+              </p>
+
+              <p class="valediction">
+                Forever & Always Yours,<br />
+                <strong>Your Bhondu Baigan 🍆❤️</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Interactive Reasons Flip Cards -->
+        <section id="reasons-section" class="app-section">
+          <div class="section-title">
+            <h2>6 Reasons Why You Are My World 💖</h2>
+            <p>Tap any card to reveal why your Bhondu Baigan adores you!</p>
+          </div>
+
+          <div class="cards-grid">
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span class="card-icon">🍆</span>
+                  <h3>Always My Mogu Baby</h3>
+                  <span class="tap-hint">Tap to flip ✨</span>
+                </div>
+                <div class="flip-card-back">
+                  <p>You've always been my Mogu Baby, and nobody in this world could ever replace you!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span class="card-icon">💖</span>
+                  <h3>We Are A Unit</h3>
+                  <span class="tap-hint">Tap to flip ✨</span>
+                </div>
+                <div class="flip-card-back">
+                  <p>Through every high and low, we are a team. We get through everything together.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span class="card-icon">🥺</span>
+                  <h3>Trying For You</h3>
+                  <span class="tap-hint">Tap to flip ✨</span>
+                </div>
+                <div class="flip-card-back">
+                  <p>Even when I get overwhelmed, I am constantly trying to be a better partner for you every day.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span class="card-icon">🫂</span>
+                  <h3>Best Hugs & Comfort</h3>
+                  <span class="tap-hint">Tap to flip ✨</span>
+                </div>
+                <div class="flip-card-back">
+                  <p>Being in your arms is my ultimate safe place. Your hugs solve everything.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span class="card-icon">✨</span>
+                  <h3>Your Smile & Laugh</h3>
+                  <span class="tap-hint">Tap to flip ✨</span>
+                </div>
+                <div class="flip-card-back">
+                  <p>Your smile lights up my whole life. I promise to keep making you smile!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <span class="card-icon">💌</span>
+                  <h3>Adored Wholeheartedly</h3>
+                  <span class="tap-hint">Tap to flip ✨</span>
+                </div>
+                <div class="flip-card-back">
+                  <p>I adore you with my whole heart and soul, now and for the rest of my life.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Music Player Controls -->
     <audio id="bg-audio" src="song.wav" preload="auto" loop></audio>
     <div id="audio-controls">
       <button id="audio-prev" aria-label="Previous song">⏮️</button>
-      <button id="audio-toggle" aria-label="Toggle background music">⏸️</button>
+      <button id="audio-toggle" aria-label="Toggle background music">▶️</button>
       <button id="audio-next" aria-label="Next song">⏭️</button>
-      <span id="audio-status" aria-live="polite">(loading...)</span>
-    </div>
-    <!-- Next button (appears on final screen) -->
-    <img src="next.png" alt="Next" id="next-btn" style="display:none" />
-
-    <!-- End screen (shown after Next) -->
-    <div id="end-screen" style="display:none">
-      <div class="end-inner">
-        <img id="end-cat" src="cat_sorry.gif" alt="Sorry Cat" />
-        <p id="made-by">made with love by sarto</p>
-        <img id="retry-btn" src="retry.png" alt="Retry" aria-label="Retry" style="cursor:pointer;" />
+      <div class="audio-info">
+        <span class="song-title" id="song-title">🎶 Romantic Track 1</span>
+        <span id="audio-status" class="audio-status-badge">(ready)</span>
       </div>
     </div>
+
+    <!-- End screen (shown after completing proposal) -->
+    <div id="end-screen" style="display:none">
+      <div class="end-inner">
+        <img id="end-cat" src="cat_dance.gif" alt="Happy Cat" />
+        <h2 class="end-title">Happy Girlfriend Day, Mogu Baby! 💖</h2>
+        <p id="made-by">Made with all my heart by your Bhondu Baigan 🍆</p>
+        <img id="retry-btn" src="retry.png" alt="Replay" aria-label="Replay" style="cursor:pointer;" />
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
-

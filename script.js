@@ -1,262 +1,312 @@
-// Elements
-const envelope = document.getElementById("envelope-container");
-const letter = document.getElementById("letter-container");
+// Elements Setup
+const envelopeContainer = document.getElementById("envelope-container");
+const mainApp = document.getElementById("main-app");
 const noBtn = document.querySelector(".no-btn");
-const yesBtn = document.querySelector(".btn[alt='Yes']");
+const yesBtn = document.querySelector(".yes-btn");
 const bgAudio = document.getElementById("bg-audio");
 const audioToggle = document.getElementById("audio-toggle");
 const audioNext = document.getElementById("audio-next");
 const audioPrev = document.getElementById("audio-prev");
+const songTitle = document.getElementById("song-title");
 const audioStatus = document.getElementById("audio-status");
 
 const title = document.getElementById("letter-title");
 const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
+const nextBtn = document.getElementById("next-btn");
 
-// Songs playlist
-const songs = ['song.wav', 'song2.wav', 'song3.wav', 'song4.wav',];
-let currentSongIndex = Math.floor(Math.random() * songs.length); // Start with random song
+// Playlist with track names
+const playlist = [
+  { src: 'song.wav', title: '🎶 Track 1 - Cozy Serenade' },
+  { src: 'song2.wav', title: '🎶 Track 2 - Sweet Romance' },
+  { src: 'song3.wav', title: '🎶 Track 3 - Mogu & Baigan' },
+  { src: 'song4.wav', title: '🎶 Track 4 - Forever Together' }
+];
 
-// Click Envelope
+let currentSongIndex = Math.floor(Math.random() * playlist.length);
+
 // Typewriter effect function
-function typewriterEffect(element, text, speed = 50) {
-    return new Promise((resolve) => {
-        element.textContent = '';
-        let index = 0;
-        
-        function typeChar() {
-            if (index < text.length) {
-                element.textContent += text[index];
-                index++;
-                setTimeout(typeChar, speed);
-            } else {
-                resolve();
-            }
-        }
-        
-        typeChar();
-    });
-}
-
-// Click Envelope
-if (envelope) {
-    envelope.addEventListener("click", () => {
-        envelope.style.display = "none";
-        if (bgAudio) {
-            try { bgAudio.volume = 0.8; bgAudio.muted = false; } catch (e) {}
-            bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
-        }
-        if (letter) letter.style.display = "flex";
-
-        setTimeout(() => {
-            document.querySelector(".letter-window")?.classList.add("open");
-            // Start typing animation for title
-            if (title) {
-                const titleText = "Will you be my Valentine for today dear timepass? ";
-                typewriterEffect(title, titleText, 40);
-            }
-        }, 50);
-    });
-}
-
-function updateAudioToggle() {
-    if (!audioToggle || !bgAudio) return;
-    if (bgAudio.paused) {
-        audioToggle.textContent = "▶️";
-        audioToggle.title = "Play music";
-        audioToggle.setAttribute('aria-pressed', 'false');
-        if (audioStatus) audioStatus.textContent = `(paused) - Song ${currentSongIndex + 1}/${songs.length}`;
-    } else {
-        audioToggle.textContent = "⏸️";
-        audioToggle.title = "Pause music";
-        audioToggle.setAttribute('aria-pressed', 'true');
-        if (audioStatus) audioStatus.textContent = `(playing) - Song ${currentSongIndex + 1}/${songs.length}`;
+function typewriterEffect(element, text, speed = 40) {
+  return new Promise((resolve) => {
+    element.textContent = '';
+    let index = 0;
+    
+    function typeChar() {
+      if (index < text.length) {
+        element.textContent += text[index];
+        index++;
+        setTimeout(typeChar, speed);
+      } else {
+        resolve();
+      }
     }
+    typeChar();
+  });
+}
+
+// Open Envelope -> Show Main Experience
+if (envelopeContainer) {
+  envelopeContainer.addEventListener("click", () => {
+    envelopeContainer.classList.remove("active-screen");
+    envelopeContainer.classList.add("hidden-screen");
+    
+    if (mainApp) {
+      mainApp.classList.remove("hidden-screen");
+    }
+
+    if (bgAudio) {
+      bgAudio.volume = 0.85;
+      bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
+    }
+  });
+}
+
+// Navigation Tabs Switching
+const navTabs = document.querySelectorAll(".nav-tab");
+const appSections = document.querySelectorAll(".app-section");
+
+navTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const targetId = tab.getAttribute("data-target");
+
+    navTabs.forEach(t => t.classList.remove("active"));
+    appSections.forEach(s => s.classList.remove("active-section"));
+
+    tab.classList.add("active");
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.classList.add("active-section");
+    }
+  });
+});
+
+// Audio Playlist Manager
+function updateAudioToggle() {
+  if (!audioToggle || !bgAudio) return;
+  
+  if (songTitle && playlist[currentSongIndex]) {
+    songTitle.textContent = playlist[currentSongIndex].title;
+  }
+
+  if (bgAudio.paused) {
+    audioToggle.textContent = "▶️";
+    if (audioStatus) audioStatus.textContent = "(paused)";
+  } else {
+    audioToggle.textContent = "⏸️";
+    if (audioStatus) audioStatus.textContent = "(playing)";
+  }
 }
 
 function changeSong(index) {
-    if (index < 0) currentSongIndex = songs.length - 1;
-    else if (index >= songs.length) currentSongIndex = 0;
-    else currentSongIndex = index;
-    
-    if (bgAudio) {
-        bgAudio.src = songs[currentSongIndex];
-        bgAudio.load();
-        bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
-    }
-}
-
-// Try to start playback on load (autoplay may be blocked); reflect state in toggle.
-if (bgAudio) {
-    // Set the randomly selected song
-    bgAudio.src = songs[currentSongIndex];
-    try { bgAudio.volume = 0.8; bgAudio.muted = false; } catch (e) {}
+  if (index < 0) currentSongIndex = playlist.length - 1;
+  else if (index >= playlist.length) currentSongIndex = 0;
+  else currentSongIndex = index;
+  
+  if (bgAudio) {
+    bgAudio.src = playlist[currentSongIndex].src;
+    bgAudio.load();
     bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
-} else if (audioStatus) {
-    audioStatus.textContent = '(no audio element)';
+  }
 }
 
-// Audio diagnostic events
 if (bgAudio) {
-    bgAudio.addEventListener('canplay', () => { if (audioStatus) audioStatus.textContent = '(can play)'; });
-    bgAudio.addEventListener('loadeddata', () => { if (audioStatus) audioStatus.textContent = '(loaded)'; });
-    bgAudio.addEventListener('playing', () => { if (audioStatus) audioStatus.textContent = '(playing)'; });
-    bgAudio.addEventListener('pause', () => { if (audioStatus) audioStatus.textContent = '(paused)'; });
-    bgAudio.addEventListener('ended', () => { if (audioStatus) audioStatus.textContent = '(ended)'; });
-    bgAudio.addEventListener('waiting', () => { if (audioStatus) audioStatus.textContent = '(waiting)'; });
-    bgAudio.addEventListener('stalled', () => { if (audioStatus) audioStatus.textContent = '(stalled)'; });
-    bgAudio.addEventListener('error', () => {
-        const err = bgAudio.error;
-        let msg = '(audio error)';
-        if (err) msg += ` code:${err.code}`;
-        if (audioStatus) audioStatus.textContent = msg;
-        console.error('bgAudio error', err);
-    });
+  bgAudio.src = playlist[currentSongIndex].src;
+  updateAudioToggle();
 }
 
 if (audioToggle) {
-    audioToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!bgAudio) return;
-        if (bgAudio.paused) {
-            bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
-        } else {
-            bgAudio.pause();
-            updateAudioToggle();
-        }
-    });
+  audioToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!bgAudio) return;
+    if (bgAudio.paused) {
+      bgAudio.play().then(() => updateAudioToggle()).catch(() => updateAudioToggle());
+    } else {
+      bgAudio.pause();
+      updateAudioToggle();
+    }
+  });
 }
 
 if (audioNext) {
-    audioNext.addEventListener('click', (e) => {
-        e.stopPropagation();
-        changeSong(currentSongIndex + 1);
-    });
+  audioNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    changeSong(currentSongIndex + 1);
+  });
 }
 
 if (audioPrev) {
-    audioPrev.addEventListener('click', (e) => {
-        e.stopPropagation();
-        changeSong(currentSongIndex - 1);
-    });
+  audioPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    changeSong(currentSongIndex - 1);
+  });
 }
 
-// Logic to move the NO btn (click moves YES)
+// Playful YES / NO Button Mechanics
 let yesScale = 1;
 
 if (yesBtn) {
-    yesBtn.style.position = "relative";
-    yesBtn.style.transformOrigin = "center center";
-    yesBtn.style.transition = "transform 0.3s ease";
+  yesBtn.style.transition = "transform 0.25s ease";
 }
 
 if (noBtn) {
-    noBtn.addEventListener("click", () => {
-        yesScale += 2;
-        if (yesBtn) {
-            if (yesBtn.style.position !== "fixed") {
-                yesBtn.style.position = "fixed";
-                yesBtn.style.top = "50%";
-                yesBtn.style.left = "50%";
-                yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-            } else {
-                yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-            }
-        }
-    });
+  const moveNoBtn = () => {
+    yesScale += 0.4;
+    if (yesBtn) {
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    // Move NO button randomly
+    const wrapper = document.querySelector(".buttons");
+    if (wrapper) {
+      const randomX = (Math.random() - 0.5) * 160;
+      const randomY = (Math.random() - 0.5) * 80;
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+  };
+
+  noBtn.addEventListener("mouseenter", moveNoBtn);
+  noBtn.addEventListener("click", moveNoBtn);
 }
 
-// YES is clicked
+// YES Button Clicked -> Celebration Confetti
 if (yesBtn) {
-    yesBtn.addEventListener("click", () => {
-        if (title) title.textContent = "Yippeeee!";
-        if (catImg) catImg.src = "cat_dance.gif";
-        document.querySelector(".letter-window")?.classList.add("final");
-        if (buttons) buttons.style.display = "none";
-        if (finalText) {
-            finalText.style.display = "block";
-            const finalTextContent = "Valentines note: I made this website just for my dear timepass!!!";
-            typewriterEffect(finalText, finalTextContent, 40);
-        }
-            // show next button at bottom
-            const nextBtn = document.getElementById('next-btn');
-            if (nextBtn) nextBtn.style.display = 'block';
-    });
+  yesBtn.addEventListener("click", () => {
+    if (title) title.textContent = "YIPPEEE! Mogu Baby Said YES! 🎉💖";
+    if (catImg) catImg.src = "cat_dance.gif";
+    if (buttons) buttons.style.display = "none";
+
+    if (finalText) {
+      finalText.style.display = "block";
+    }
+
+    if (nextBtn) {
+      nextBtn.style.display = "inline-block";
+    }
+
+    triggerConfetti();
+  });
 }
 
-    // Next button -> show end screen
-    const nextBtn = document.getElementById('next-btn');
+// Confetti Effect
+function triggerConfetti() {
+  const colors = ['#ff758c', '#ff4d6d', '#ffd166', '#ffffff', '#8b249e'];
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.top = '-10px';
+    confetti.style.width = (Math.random() * 8 + 6) + 'px';
+    confetti.style.height = (Math.random() * 12 + 8) + 'px';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.borderRadius = '3px';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.zIndex = '99999';
+    confetti.style.opacity = '0.9';
+    
+    const fallDuration = 2 + Math.random() * 2.5;
+    confetti.style.transition = `transform ${fallDuration}s linear, opacity ${fallDuration}s ease`;
+    
+    document.body.appendChild(confetti);
+
+    setTimeout(() => {
+      confetti.style.transform = `translate3d(${(Math.random() - 0.5) * 300}px, 105vh, 0) rotate(${Math.random() * 720}deg)`;
+      confetti.style.opacity = '0';
+    }, 20);
+
+    setTimeout(() => confetti.remove(), fallDuration * 1000 + 100);
+  }
+}
+
+// Next Button -> Go to End Screen
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
     const endScreen = document.getElementById('end-screen');
-    const endCat = document.getElementById('end-cat');
-    const madeBy = document.getElementById('made-by');
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            // hide letter container and hearts (keep if desired)
-            if (letter) letter.style.display = 'none';
-            // hide next button itself
-            nextBtn.style.display = 'none';
-            // show end screen
-            if (endScreen) endScreen.style.display = 'flex';
-            // ensure audio controls are visible on the end screen (bring to front)
-            const audioControls = document.getElementById('audio-controls');
-            if (audioControls) {
-                audioControls.style.display = 'flex';
-                audioControls.style.zIndex = '10002';
-            }
-            // ensure end gif is loaded / plays
-            if (endCat) {
-                // reload src to restart gif if needed
-                const src = endCat.src;
-                endCat.src = '';
-                endCat.src = src;
-            }
-            // update made-by text with typing animation
-            if (madeBy) {
-                const madeByText = 'made with love by sarto';
-                typewriterEffect(madeBy, madeByText, 40);
-            }
-        });
+    if (endScreen) {
+      endScreen.style.display = 'flex';
     }
+  });
+}
 
-    // Retry button -> reload to start over
-    const retryBtn = document.getElementById('retry-btn');
-    if (retryBtn) {
-        retryBtn.addEventListener('click', () => {
-            location.reload();
-        });
-    }
+// Retry / Replay Button
+const retryBtn = document.getElementById('retry-btn');
+if (retryBtn) {
+  retryBtn.addEventListener('click', () => {
+    location.reload();
+  });
+}
 
-// --- Floating hearts background (creates many hearts with random size/speed) ---
+// Interactive Card Flips
+const flipCards = document.querySelectorAll(".flip-card");
+flipCards.forEach(card => {
+  card.addEventListener("click", () => {
+    card.classList.toggle("flipped");
+  });
+});
+
+// Lightweight Floating Baigan & Heart Background Generator
 (() => {
-    const container = document.querySelector('.hearts-bg');
-    if (!container) return;
+  const container = document.querySelector('.hearts-bg');
+  if (!container) return;
 
-    const HEARTS = 25;
-    for (let i = 0; i < HEARTS; i++) {
-        const heart = document.createElement('img');
-        heart.className = 'heart';
-        heart.src = 'cat_heart.gif';
-        heart.alt = 'Floating cat heart';
-        heart.style.pointerEvents = 'none';
+  const textEmojis = ['💖', '🍆', '✨', '💕', '🥰', '💜'];
+  const count = 10; // Optimized count for 60fps performance
 
-        // Random horizontal position
-        heart.style.left = Math.random() * 100 + 'vw';
+  for (let i = 0; i < count; i++) {
+    const isImage = i % 2 === 0;
+    const el = document.createElement(isImage ? 'img' : 'span');
+    el.className = 'floating-item';
 
-        // Random animation duration and staggered delay
-        const dur = 4 + Math.random() * 6; // 4s - 10s
-        heart.style.animationDuration = dur + 's';
-        heart.style.animationDelay = (Math.random() * -dur) + 's';
-
-        // Random size
-        const size = 60 + Math.random() * 60; // 60px - 120px
-        heart.style.width = size + 'px';
-        heart.style.height = 'auto';
-
-        // Slight horizontal drift using transform translateX via CSS variable
-        const drift = (Math.random() - 0.5) * 20; // -10 to 10 vw
-        heart.style.setProperty('--drift', drift + 'vw');
-
-        container.appendChild(heart);
+    if (isImage) {
+      el.src = 'cat_heart.gif';
+      el.alt = 'Floating Heart Cat';
+      el.style.width = (35 + Math.random() * 40) + 'px';
+      el.style.height = 'auto';
+    } else {
+      el.textContent = textEmojis[Math.floor(Math.random() * textEmojis.length)];
+      el.style.fontSize = (18 + Math.random() * 20) + 'px';
     }
+
+    el.style.left = Math.random() * 100 + 'vw';
+    const duration = 7 + Math.random() * 7;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = (Math.random() * -duration) + 's';
+
+    container.appendChild(el);
+  }
 })();
+
+// Throttled Particle Trail Effect (Max 1 particle per 150ms for buttery performance)
+let lastParticleTime = 0;
+const createTrailParticle = (x, y) => {
+  const now = Date.now();
+  if (now - lastParticleTime < 150) return;
+  lastParticleTime = now;
+  
+  const particle = document.createElement("span");
+  particle.textContent = Math.random() > 0.5 ? "💖" : "🍆";
+  particle.style.position = "fixed";
+  particle.style.left = (x - 8) + "px";
+  particle.style.top = (y - 8) + "px";
+  particle.style.fontSize = "14px";
+  particle.style.pointerEvents = "none";
+  particle.style.zIndex = "99999";
+  particle.style.transition = "transform 0.7s ease-out, opacity 0.7s ease-out";
+  particle.style.opacity = "0.85";
+
+  document.body.appendChild(particle);
+
+  setTimeout(() => {
+    particle.style.transform = `translate3d(${(Math.random() - 0.5) * 20}px, -35px, 0) scale(0.5)`;
+    particle.style.opacity = "0";
+  }, 20);
+
+  setTimeout(() => particle.remove(), 700);
+};
+
+document.addEventListener("mousemove", (e) => createTrailParticle(e.clientX, e.clientY));
+document.addEventListener("touchmove", (e) => {
+  if (e.touches && e.touches[0]) {
+    createTrailParticle(e.touches[0].clientX, e.touches[0].clientY);
+  }
+});
